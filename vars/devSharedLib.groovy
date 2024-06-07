@@ -73,9 +73,12 @@ def DeployDev2(Map config = [:]) {
         sh """
         
         export KUBECONFIG=$KUBECRED
-        sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev2/helmrelease.yaml > helmcharts/${config.ENV}/dev2/helmrelease1.yaml
-        kubectl apply -f helmcharts/${config.ENV}/dev2/helmrelease1.yaml
-        sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev2/values.yaml
+        cd helmcharts/${config.ENV}
+        helm delete dev2
+        helm install dev2 dev2
+        // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev2/helmrelease.yaml > helmcharts/${config.ENV}/dev2/helmrelease1.yaml
+        // kubectl apply -f helmcharts/${config.ENV}/dev2/helmrelease1.yaml
+        // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev2/values.yaml
         
         """
     }
@@ -90,9 +93,12 @@ def DeployDev3(Map config = [:]) {
         sh """
         
         export KUBECONFIG=$KUBECRED
-        sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev3/helmrelease.yaml > helmcharts/${config.ENV}/dev3/helmrelease1.yaml
-        kubectl apply -f helmcharts/${config.ENV}/dev3/helmrelease1.yaml
-        sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev3/values.yaml
+        cd helmcharts/${config.ENV}
+        helm delete dev3
+        helm install dev3 dev3
+        // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev3/helmrelease.yaml > helmcharts/${config.ENV}/dev3/helmrelease1.yaml
+        // kubectl apply -f helmcharts/${config.ENV}/dev3/helmrelease1.yaml
+        // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev3/values.yaml
         
         """
     }
