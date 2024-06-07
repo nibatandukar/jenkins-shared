@@ -27,8 +27,8 @@ def BuildDev3(Map config = [:]) {
 
 /*CD Methods*/
 def Deployclone(Map config = [:]) {
-    withCredentials([string(credentialsId: 'jenkins-change-set', variable: 'value')]) {
-        git credentialsId: 'jenkins-changeset-github-url', url: "${value}", branch: "${config.helmBranch}"
+    withCredentials([string(credentialsId: 'jenkins-changeset-github-url', variable: 'value')]) {
+        git credentialsId: 'jenkins-change-set', url: "${value}", branch: "${config.helmBranch}"
     }
     withCredentials([
         file(credentialsId: "${config.configId}", variable: 'KUBECRED'),
