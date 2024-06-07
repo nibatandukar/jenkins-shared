@@ -2,7 +2,7 @@ def BuildDev1(Map config = [:]) {
     withCredentials([string(credentialsId: 'gituser', variable: 'username'), string(credentialsId: 'gitpassword', variable: 'password')]) {
     docker.withRegistry('https://018028332614.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:fpg-prod-ecr-creds') {
         def dockerfile = "${config.Dockerfile}"
-        def customImage = docker.build("dev1:${config.tag}", "--build-arg username=$username --build-arg password=$password -f ./dev1/${dockerfile} ./dev1/")
+        def customImage = docker.build("jenkins-change-set:dev1-${config.tag}", "--build-arg username=$username --build-arg password=$password -f ./dev1/${dockerfile} ./dev1/")
         customImage.push()
     }
     }
