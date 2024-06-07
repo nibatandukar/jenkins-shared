@@ -113,7 +113,10 @@ def DeployDev3(Map config = [:]) {
         sudo mv linux-amd64/helm /usr/local/bin/helm
         
         cd helmcharts/${config.ENV}
+        ls -al
+        pwd
         helm delete dev3
+        ls -al
         helm install dev3 dev3
         """
     }
