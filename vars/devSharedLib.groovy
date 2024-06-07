@@ -52,9 +52,12 @@ def DeployDev1(Map config = [:]) {
         sh """
         
         export KUBECONFIG=$KUBECRED
-        sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev1/helmrelease.yaml > helmcharts/${config.ENV}/dev1/helmrelease1.yaml
-        kubectl apply -f helmcharts/${config.ENV}/dev1/helmrelease1.yaml
-        sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev1/values.yaml
+        cd helmcharts/${config.ENV}
+        helm delete dev1
+        helm install dev1 dev1
+        // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev1/helmrelease.yaml > helmcharts/${config.ENV}/dev1/helmrelease1.yaml
+        // kubectl apply -f helmcharts/${config.ENV}/dev1/helmrelease1.yaml
+        // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev1/values.yaml
         
         """
     }
