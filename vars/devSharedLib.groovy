@@ -49,15 +49,19 @@ def DeployDev1(Map config = [:]) {
         file(credentialsId: "${config.configId}", variable: 'KUBECRED'),
         gitUsernamePassword(credentialsId: 'jenkins-change-set', gitToolName: 'Default')
     ]) {
-        sh """
+        
+        // sh """
+        //  export KUBECONFIG=$KUBECRED
+        //  sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev1/helmrelease.yaml > helmcharts/${config.ENV}/dev1/helmrelease1.yaml *
+        //  kubectl apply -f helmcharts/${config.ENV}/dev1/helmrelease1.yaml
+        //  sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev1/values.yaml
+        // """
+            sh """
         
         export KUBECONFIG=$KUBECRED
         cd helmcharts/${config.ENV}
         helm delete dev1
         helm install dev1 dev1
-        // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev1/helmrelease.yaml > helmcharts/${config.ENV}/dev1/helmrelease1.yaml
-        // kubectl apply -f helmcharts/${config.ENV}/dev1/helmrelease1.yaml
-        // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev1/values.yaml
         
         """
     }
@@ -76,11 +80,15 @@ def DeployDev2(Map config = [:]) {
         cd helmcharts/${config.ENV}
         helm delete dev2
         helm install dev2 dev2
-        // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev2/helmrelease.yaml > helmcharts/${config.ENV}/dev2/helmrelease1.yaml
-        // kubectl apply -f helmcharts/${config.ENV}/dev2/helmrelease1.yaml
-        // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev2/values.yaml
-        
         """
+        //     sh """
+        
+        // export KUBECONFIG=$KUBECRED
+        // // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev2/helmrelease.yaml > helmcharts/${config.ENV}/dev2/helmrelease1.yaml
+        // // kubectl apply -f helmcharts/${config.ENV}/dev2/helmrelease1.yaml
+        // // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev2/values.yaml
+        
+        // """
     }
 }
 
@@ -90,16 +98,19 @@ def DeployDev3(Map config = [:]) {
         file(credentialsId: "${config.configId}", variable: 'KUBECRED'),
         gitUsernamePassword(credentialsId: 'jenkins-change-set', gitToolName: 'Default')
     ]) {
-        sh """
+        // sh """
+        // export KUBECONFIG=$KUBECRED
+        // // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev3/helmrelease.yaml > helmcharts/${config.ENV}/dev3/helmrelease1.yaml
+        // // kubectl apply -f helmcharts/${config.ENV}/dev3/helmrelease1.yaml
+        // // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev3/values.yaml
         
+        // """
+        
+        sh """
         export KUBECONFIG=$KUBECRED
         cd helmcharts/${config.ENV}
         helm delete dev3
         helm install dev3 dev3
-        // sed "s+helmrelease-branch+"${config.helmBranch}"+g" helmcharts/${config.ENV}/dev3/helmrelease.yaml > helmcharts/${config.ENV}/dev3/helmrelease1.yaml
-        // kubectl apply -f helmcharts/${config.ENV}/dev3/helmrelease1.yaml
-        // sed -i 's/tag:.*/tag: ${config.tag}/g' helmcharts/${config.ENV}/dev3/values.yaml
-        
         """
     }
 }
